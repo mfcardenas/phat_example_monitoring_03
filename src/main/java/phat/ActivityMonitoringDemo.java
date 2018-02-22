@@ -29,12 +29,15 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.material.Material;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.Control;
+import com.jme3.scene.shape.Box;
 import phat.agents.actors.ActorFactory;
 import phat.agents.actors.parkinson.HandTremblingControl;
 import phat.app.PHATApplication;
@@ -49,6 +52,7 @@ import phat.control.RightArmMoveControl;
 import phat.devices.DevicesAppState;
 import phat.devices.commands.CreateAccelerometerSensorCommand;
 import phat.devices.commands.SetDeviceOnPartOfBodyCommand;
+import phat.devices.smartphone.SmartPhoneFactory;
 import phat.environment.SpatialEnvironmentAPI;
 import phat.sensors.accelerometer.AccelerometerControl;
 import phat.sensors.accelerometer.XYAccelerationsChart;
@@ -95,6 +99,7 @@ public class ActivityMonitoringDemo extends SimpleScenario {
         Node model = ActorFactory.createActorModel("Model", "Models/People/Elder/Elder.j3o", 4f);
 
         rootNode.attachChild(model);
+
         initAnimation(model);
         initGestures(model);
 
@@ -105,6 +110,7 @@ public class ActivityMonitoringDemo extends SimpleScenario {
     }
 
     private void initGestures(Node model) {
+
         HandTremblingControl htcR = new HandTremblingControl(HandTremblingControl.Hand.RIGHT_HAND);
         model.addControl(htcR);
 
@@ -120,9 +126,28 @@ public class ActivityMonitoringDemo extends SimpleScenario {
         RightArmMoveControl rac = new RightArmMoveControl();
         model.addControl(rac);
 
+        AccelerometerControl ac1 = new AccelerometerControl("Sensor1");
+        model.addControl(ac1);
+
+        AccelerometerControl ac2 = new AccelerometerControl("Sensor2");
+        model.addControl(ac2);
+
+        XYAccelerationsChart chart1 = new XYAccelerationsChart("Chart1 - Acc.", "Accelerations", "m/s2", "x,y,z");
+        ac1.add(chart1);
+//        chart1.showWindow();
+
+        XYAccelerationsChart chart2 = new XYAccelerationsChart("Chart2 - Acc.", "Accelerations", "m/s2", "x,y,z");
+        ac2.add(chart2);
+//        chart2.showWindow();
+
     }
 
     int cycleCounter = 0;
+
+    /**
+     * Init animation.
+     * @param model
+     */
     private void initAnimation(final Node model) {
         logger.info("----> init animation");
         AnimControl ac = ActorFactory.findControl(model, AnimControl.class);
