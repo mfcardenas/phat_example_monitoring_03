@@ -1,10 +1,12 @@
 # PHAT Example Variation Activity [03]
-Monitoring of a user with mobile phone acceleration sensors positioned on the chest and both hands while performing basic activities.
+A user presents an episode of tremors in the hands and neck.
+While the episode occurs, the gesture of opening a door is assigned. The gesture is deteriorated to a different degree with both hands.
+
+While performing the gesture, two accelerometry sensors positioned in both hands are read.
 <table>
 <tr>
     <td>
-        <img height="80" width="80" src="https://github.com/mfcardenas/phat_examples/blob/master/img/warning.png" title="Warning"/>
-        <img height="80" width="80" src="https://github.com/mfcardenas/phat_examples/blob/master/img/in_progress.png" title="The example is under construction"/>
+        <img height="80" width="80" src="https://github.com/mfcardenas/phat_example_monitoring_03/blob/master/img/in_progress.png" title="The example is under construction"/>
     </td>
     <td>  
 To run the demo
